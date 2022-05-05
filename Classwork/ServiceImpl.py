@@ -413,6 +413,9 @@ def LCM(first, second):
 
 
 def generateWordcloud():
+    """
+    绘制词云
+    """
     # 选择文件
     fileStrings = Utils.readTxtFile(Utils.selectFile())
     strings = str(fileStrings)
@@ -421,7 +424,9 @@ def generateWordcloud():
     # 设置词云参数
     wc = wordcloud.WordCloud(mask=shape, background_color='white')
     wc.generate(strings)
-    wc.to_file('wc.png')
+    wcurl = 'wc.jpg'
+    wc.to_file(wcurl)
+    return wcurl
 
 
 def printLog():
