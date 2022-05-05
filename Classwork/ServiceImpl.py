@@ -2,7 +2,6 @@
 # @Time    : 2022/3/10 21:46
 
 import math
-
 import wordcloud
 from matplotlib.image import imread
 import Utils
