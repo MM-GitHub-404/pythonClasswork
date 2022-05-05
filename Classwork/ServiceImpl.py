@@ -424,9 +424,9 @@ def generateWordcloud():
     # 设置词云参数
     wc = wordcloud.WordCloud(mask=shape, background_color='white')
     wc.generate(strings)
-    wcurl = 'wc.jpg'
-    wc.to_file(wcurl)
-    return wcurl
+    wcUrl = 'wc.jpg'
+    wc.to_file(wcUrl)
+    return wcUrl
 
 
 def printLog():
