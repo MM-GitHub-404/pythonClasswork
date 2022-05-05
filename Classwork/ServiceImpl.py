@@ -417,7 +417,7 @@ def generateWordcloud():
     绘制词云
     """
     # 选择文件
-    fileStrings = Utils.readTxtFile(Utils.selectFile())
+    fileStrings = open(Utils.selectFile(), encoding='utf-8')
     strings = str(fileStrings)
     # 设置形状
     shape = imread(Utils.selectFile(), 1)
