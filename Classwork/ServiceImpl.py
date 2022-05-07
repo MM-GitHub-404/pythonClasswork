@@ -3,7 +3,6 @@
 
 import math
 import turtle
-
 import jieba
 import wordcloud
 from matplotlib.image import imread
@@ -452,14 +451,18 @@ def drawBarChart(multiple=5):
         maxKey = None
         maxValue = -1
         for key in statistics:
-            if (statistics[key] >= maxValue) and (key != '\n'):
+            # 设置排除掉jieba库分词不当得到的词语
+            if (statistics[key] >= maxValue) and (key not in ('\n', '\t', ' ')):
                 maxKey = key
                 maxValue = statistics[key]
         languages.append(maxKey)
         heights.append(maxValue)
         del statistics[maxKey]
+    print(languages)
     # 使用乌龟绘制频率直方图
     t = turtle.Turtle()
+    # 设置绘制速度最快
+    t.speed(0)
     t.hideturtle()
     for i in range(10):
         # drawFilledRectangle和displayText方法是使用别人写好的,简单调了一下参数

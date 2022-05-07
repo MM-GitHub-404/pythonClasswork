@@ -4,8 +4,6 @@
 import tkinter.filedialog
 import turtle
 
-import jieba
-
 '''
 工具类
 将业务逻辑层中重复使用的方法移动至工具类中,避免产生函数依赖
@@ -114,8 +112,9 @@ def displayText(t, multiple, languages, heights):
     :param languages:   柱体数据参数列表
     :param heights:     柱体高度列表
     """
-    t.pencolor("blue")
+    t.pencolor("black")
     t.up()
+    # 由于使用的是绝对坐标, 所以需要用基准倍数multiple调整直方图大小
     for i in range(10):
         # 绘制频数参数
         t.goto((-362 + 76 * i), heights[i] * multiple / 9)

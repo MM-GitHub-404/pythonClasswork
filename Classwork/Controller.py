@@ -404,7 +404,7 @@ class User(object):
                 elif serial == '20':
                     ServiceImpl.generateWordcloud()
                 elif serial == '21':
-                    ServiceImpl.drawBarChart()
+                    ServiceImpl.drawBarChart(0.3)
                 else:
                     print('错误: 您输入的程序序号不存在\n')
 
