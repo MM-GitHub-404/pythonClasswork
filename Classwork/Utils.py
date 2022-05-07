@@ -117,8 +117,10 @@ def displayText(t, multiple, languages, heights):
     t.pencolor("blue")
     t.up()
     for i in range(10):
+        # 绘制频数参数
         t.goto((-362 + 76 * i), heights[i] * multiple / 9)
         t.write(str(heights[i]), align="center", font=("Arial", 10, "normal"))
+        # 绘制标签参数
         t.goto((-362 + 76 * i), 10)
         t.write(languages[i], align="center", font=("Arial", 10, "normal"))
     turtle.done()

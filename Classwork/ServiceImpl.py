@@ -438,13 +438,14 @@ def drawBarChart(multiple=5):
 
     :param multiple: 条形图高度基准参数,默认为5倍频数
     """
+    # 分词
     strings = jieba.lcut_for_search(Utils.readTxtFile(Utils.selectFile()))
     strSet = set(strings)
-
+    # 统计词语出现频率
     statistics = {}
     for s in strSet:
         statistics[s] = strings.count(s)
-
+    # 获取用于绘制条形图的参数
     languages = []
     heights = []
     for i in range(10):
@@ -457,10 +458,12 @@ def drawBarChart(multiple=5):
         languages.append(maxKey)
         heights.append(maxValue)
         del statistics[maxKey]
-
+    # 使用乌龟绘制频率直方图
     t = turtle.Turtle()
     t.hideturtle()
     for i in range(10):
+        # drawFilledRectangle和displayText方法是使用别人写好的,简单调了一下参数
+        # 没有注释地方说明我也不懂是如何实现的
         Utils.drawFilledRectangle(t, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "light blue")
     Utils.displayText(t, multiple, languages, heights)
 
