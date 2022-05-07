@@ -458,7 +458,6 @@ def drawBarChart(multiple=5):
         languages.append(maxKey)
         heights.append(maxValue)
         del statistics[maxKey]
-    print(languages)
     # 使用乌龟绘制频率直方图
     t = turtle.Turtle()
     # 设置绘制速度最快

@@ -1,6 +1,6 @@
 # @Author  : 茂茂
 # @Time    : 2022/3/21 9:05
-
+import time
 import tkinter.filedialog
 import turtle
 
@@ -122,4 +122,5 @@ def displayText(t, multiple, languages, heights):
         # 绘制标签参数
         t.goto((-362 + 76 * i), 10)
         t.write(languages[i], align="center", font=("Arial", 10, "normal"))
-    turtle.done()
+    # 默认展示直方图10秒
+    time.sleep(10)

@@ -2,6 +2,8 @@
 # @Time    : 2022/3/10 21:48
 
 import sys
+import PIL
+
 import ServiceImpl
 
 '''
@@ -27,10 +29,10 @@ class User(object):
         """
         while True:
             try:
-                print("请选择进入程序(输入序号):\t1-运煤计算器\t\t\t2-圆计算器\t\t\t3-查找偶数\t\t4-判断正负\t\t\t5-查找质数\t\t6-计算小写字母")
-                print("\t\t\t\t\t\t7-替换字符\t\t\t8-合并列表\t\t\t9-扩展指定元组\t10-计算字符重现次数\t11-列表去重\t\t12-备份文件")
-                print("\t\t\t\t\t\t13-去除文件中的行注释\t14-将文件中的数值排序\t15-计算偶数和\t\t16-计算累乘\t\t\t17-判断回文数\t\t18-构建三角形")
-                print("\t\t\t\t\t\t19-计算公倍数")
+                print("请选择进入程序(输入序号):\t1-运煤计算器\t\t\t2-圆计算器\t\t\t3-查找偶数\t\t\t4-判断正负\t\t\t5-查找质数\t\t6-计算小写字母")
+                print("\t\t\t\t\t\t7-替换字符\t\t\t8-合并列表\t\t\t9-扩展指定元组\t\t10-计算字符重现次数\t11-列表去重\t\t12-备份文件")
+                print("\t\t\t\t\t\t13-去除文件中的行注释\t14-将文件中的数值排序\t15-计算偶数和\t\t\t16-计算累乘\t\t\t17-判断回文数\t\t18-构建三角形")
+                print("\t\t\t\t\t\t19-计算公倍数\t\t\t20-生成词云\t\t\t21-统计词语出现频次")
                 print("\t\t\t\t\t\t0-退出程序")
                 serial = input("请选择: ")
                 if '0' == serial:
@@ -402,9 +404,27 @@ class User(object):
 
                     builtInput()
                 elif serial == '20':
-                    ServiceImpl.generateWordcloud()
+                    print('请先选择文本,再选择图像')
+
+                    def builtInput():
+                        try:
+                            ServiceImpl.generateWordcloud()
+                            print('\n')
+                        except PIL.UnidentifiedImageError:
+                            print('错误: 请先选择文本,再选择图像!\n')
+                            builtInput()
+
+                    builtInput()
+
                 elif serial == '21':
-                    ServiceImpl.drawBarChart(0.3)
+                    def builtInput():
+                        try:
+                            a = float(input('请输入基准参数(任意数字,控制直方图在屏幕的大小,默认为5): '))
+                            ServiceImpl.drawBarChart(a)
+                        except ValueError:
+                            ServiceImpl.drawBarChart()
+
+                    builtInput()
                 else:
                     print('错误: 您输入的程序序号不存在\n')
 
