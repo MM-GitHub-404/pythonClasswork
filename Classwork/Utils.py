@@ -2,6 +2,9 @@
 # @Time    : 2022/3/21 9:05
 
 import tkinter.filedialog
+import turtle
+
+import jieba
 
 '''
 工具类
@@ -82,3 +85,40 @@ def outputEvenNumbers(upperRange, lowerRange=0):
             evenList.append(i)
         i += 1
     return evenList
+
+
+def drawFilledRectangle(t, x, y, w, h, colorP="black", colorF="white"):
+    """
+    绘制柱体
+
+    """
+    t.pencolor(colorP)
+    t.fillcolor(colorF)
+    t.up()
+    t.goto(x, y)
+    t.down()
+    t.begin_fill()
+    t.goto(x + w, y)
+    t.goto(x + w, y + h)
+    t.goto(x, y + h)
+    t.goto(x, y)
+    t.end_fill()
+
+
+def displayText(t, multiple, languages, heights):
+    """
+    绘制柱体数据参数
+
+    :param t:           乌龟参数
+    :param multiple:    倍数柱体高度参数
+    :param languages:   柱体数据参数列表
+    :param heights:     柱体高度列表
+    """
+    t.pencolor("blue")
+    t.up()
+    for i in range(10):
+        t.goto((-362 + 76 * i), heights[i] * multiple / 9)
+        t.write(str(heights[i]), align="center", font=("Arial", 10, "normal"))
+        t.goto((-362 + 76 * i), 10)
+        t.write(languages[i], align="center", font=("Arial", 10, "normal"))
+    turtle.done()

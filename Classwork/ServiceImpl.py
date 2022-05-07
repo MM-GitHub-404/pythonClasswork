@@ -2,6 +2,9 @@
 # @Time    : 2022/3/10 21:46
 
 import math
+import turtle
+
+import jieba
 import wordcloud
 from matplotlib.image import imread
 import Utils
@@ -427,6 +430,39 @@ def generateWordcloud():
     wcUrl = 'wc.jpg'
     wc.to_file(wcUrl)
     return wcUrl
+
+
+def drawBarChart(multiple=5):
+    """
+    绘制文本中词语出现次数排名前十的条形图
+
+    :param multiple: 条形图高度基准参数,默认为5倍频数
+    """
+    strings = jieba.lcut_for_search(Utils.readTxtFile(Utils.selectFile()))
+    strSet = set(strings)
+
+    statistics = {}
+    for s in strSet:
+        statistics[s] = strings.count(s)
+
+    languages = []
+    heights = []
+    for i in range(10):
+        maxKey = None
+        maxValue = -1
+        for key in statistics:
+            if (statistics[key] >= maxValue) and (key != '\n'):
+                maxKey = key
+                maxValue = statistics[key]
+        languages.append(maxKey)
+        heights.append(maxValue)
+        del statistics[maxKey]
+
+    t = turtle.Turtle()
+    t.hideturtle()
+    for i in range(10):
+        Utils.drawFilledRectangle(t, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "light blue")
+    Utils.displayText(t, multiple, languages, heights)
 
 
 def printLog():
