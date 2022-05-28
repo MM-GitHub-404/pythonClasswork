@@ -19,9 +19,10 @@ import time
 
 def strangeTriangle(length, stairs):
     """
+    绘制奇异三角形
 
-    @param length:
-    @param stairs:
+    @param length:  最大三角形的边长
+    @param stairs:  需要绘制的阶数
     """
 
     def drawTriangle(pen, length, stairs):
