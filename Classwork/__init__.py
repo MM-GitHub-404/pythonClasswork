@@ -4,6 +4,10 @@
 import Class
 import Controller
 
+'''
+启动器
+'''
+
 if __name__ == '__main__':
     user = Controller.User('茂茂')
     user.transfer()
