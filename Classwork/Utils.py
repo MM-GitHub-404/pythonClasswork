@@ -124,3 +124,44 @@ def displayText(t, multiple, languages, heights):
         t.write(languages[i], align="center", font=("Arial", 10, "normal"))
     # 默认展示直方图10秒
     time.sleep(10)
+
+
+def drawTriangle(pen, length, stairs):
+    """
+    绘制奇异三角形
+
+    @param pen:     海龟画笔
+    @param length:  最大三角形的边长
+    @param stairs:  需要绘制的阶数
+    """
+    # 绘制单个三角形,绘制完成方向调整归右,保持方向起始一致性
+    if stairs == 0:
+        pen.forward(length)
+        pen.left(120)
+        pen.forward(length)
+        pen.left(120)
+        pen.forward(length)
+        pen.left(120)
+    else:
+        # 依照边长折半规律,递归绘制n+1阶三角形内的n阶三角形
+        # 递归绘制左三角后,移动画笔到右三角
+        drawTriangle(pen, length / 2, stairs - 1)
+        pen.penup()
+        pen.forward(length / 2)
+        pen.pendown()
+
+        # 递归绘制右三角后,移动画笔到上三角
+        drawTriangle(pen, length / 2, stairs - 1)
+        pen.penup()
+        pen.left(120)
+        pen.forward(length / 2)
+        pen.right(120)
+        pen.pendown()
+
+        # 递归绘制上三角,移动画笔左三角起始位置,保持方向起始一致性
+        drawTriangle(pen, length / 2, stairs - 1)
+        pen.penup()
+        pen.right(120)
+        pen.forward(length / 2)
+        pen.left(120)
+        pen.pendown()
