@@ -10,6 +10,7 @@ import Utils
 import os
 import datetime
 import traceback
+import time
 
 '''
 业务逻辑层
@@ -469,6 +470,67 @@ def drawBarChart(multiple=5):
         Utils.drawFilledRectangle(t, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "light blue")
     Utils.displayText(t, multiple, languages, heights)
 
+
+def snowflakeCurve(length, stairs):
+    # 定义内部类方便调用
+    def drawSnowflakes(pen, length, stairs):
+        """
+        绘制雪花曲线
+
+        @param pen:     海龟画笔
+        @param length:  雪花每条直线的长
+        @param stairs:  需要绘制的阶数
+        """
+        # 绘制一阶雪花线段
+        if stairs <= 1:
+            pen.forward(length)
+            pen.left(60)
+            pen.forward(length)
+            pen.right(120)
+            pen.forward(length)
+            pen.left(60)
+            pen.forward(length)
+        # 依照雪花转向规律,递归绘制n-1阶雪花线段
+        else:
+            for i in range(4):
+                if i % 2 == 0:
+                    drawSnowflakes(pen, length, stairs - 1)
+                    pen.left(60)
+                else:
+                    drawSnowflakes(pen, length, stairs - 1)
+                    pen.right(120)
+            # 调整方向,保持方向起始一致性
+            pen.left(120)
+
+    # 设置画布尺寸
+    turtle.setup(500, 500)
+    pen = turtle.Turtle()
+    # 隐藏画笔形状
+    pen.hideturtle()
+    # 合龙雪花线段为雪花
+    for i in range(3):
+        drawSnowflakes(pen, length, stairs)
+        pen.right(120)
+    # 默认完成绘制3秒后清空画布返回主程序
+    time.sleep(3)
+    pen.reset()
+
+
+def strangeTriangle(length, stairs):
+    # 设置画布尺寸
+    turtle.setup(1000, 800)
+    pen = turtle.Turtle()
+    # 隐藏画笔形状
+    pen.hideturtle()
+    # 移动画笔到指定位置开始
+    pen.penup()
+    pen.goto(-400, -300)
+    pen.pendown()
+
+    Utils.drawTriangle(pen, length, stairs)
+    # 默认完成绘制3秒后清空画布返回主程序
+    time.sleep(3)
+    pen.reset()
 
 def printLog():
     """

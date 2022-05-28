@@ -32,7 +32,7 @@ class User(object):
                 print("请选择进入程序(输入序号):\t1-运煤计算器\t\t\t2-圆计算器\t\t\t3-查找偶数\t\t\t4-判断正负\t\t\t5-查找质数\t\t6-计算小写字母")
                 print("\t\t\t\t\t\t7-替换字符\t\t\t8-合并列表\t\t\t9-扩展指定元组\t\t10-计算字符重现次数\t11-列表去重\t\t12-备份文件")
                 print("\t\t\t\t\t\t13-去除文件中的行注释\t14-将文件中的数值排序\t15-计算偶数和\t\t\t16-计算累乘\t\t\t17-判断回文数\t\t18-构建三角形")
-                print("\t\t\t\t\t\t19-计算公倍数\t\t\t20-生成词云\t\t\t21-统计词语出现频次")
+                print("\t\t\t\t\t\t19-计算公倍数\t\t\t20-生成词云\t\t\t21-统计词语出现频次\t22-绘制雪花曲线\t\t23-绘制奇异三角形")
                 print("\t\t\t\t\t\t0-退出程序")
                 serial = input("请选择: ")
                 if '0' == serial:
@@ -424,6 +424,29 @@ class User(object):
                         except ValueError:
                             ServiceImpl.drawBarChart()
 
+                    builtInput()
+                elif serial == '22':
+                    def builtInput():
+                        try:
+                            length = float(input('雪花长度: '))
+                            stairs = float(input('阶数: '))
+                            print("正在后台绘制,可切换界面查看进程")
+                            ServiceImpl.snowflakeCurve(length, stairs)
+                        except ValueError:
+                            print("正在后台绘制,请切换界面查看进程")
+                            ServiceImpl.snowflakeCurve(length, stairs)
+
+                    builtInput()
+                elif serial == '23':
+                    def builtInput():
+                        try:
+                            length = float(input('奇异三角形长度: '))
+                            stairs = float(input('阶数: '))
+                            print("正在后台绘制,可切换界面查看进程")
+                            ServiceImpl.strangeTriangle(length, stairs)
+                        except ValueError:
+                            print("正在后台绘制,可切换界面查看进程")
+                            ServiceImpl.strangeTriangle(length, stairs)
                     builtInput()
                 else:
                     print('错误: 您输入的程序序号不存在\n')
