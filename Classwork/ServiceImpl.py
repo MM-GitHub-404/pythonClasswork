@@ -17,6 +17,12 @@ import time
 '''
 
 def snowflakeCurve(length, stairs):
+    """
+    绘制完整雪花曲线
+
+    @param length:  雪花每条直线的长
+    @param stairs:  需要绘制的阶数
+    """
     # 定义内部类方便调用
     def drawSnowflakes(pen, length, stairs):
         """
