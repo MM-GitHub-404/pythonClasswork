@@ -16,6 +16,7 @@ import time
 业务逻辑层
 '''
 
+
 def snowflakeCurve(length, stairs):
     """
     绘制完整雪花曲线
@@ -23,6 +24,7 @@ def snowflakeCurve(length, stairs):
     @param length:  雪花每条直线的长
     @param stairs:  需要绘制的阶数
     """
+
     # 定义内部类方便调用
     def drawSnowflakes(pen, length, stairs):
         """
@@ -82,6 +84,8 @@ def strangeTriangle(length, stairs):
     # 默认完成绘制3秒后清空画布返回主程序
     time.sleep(3)
     pen.reset()
+
+
 def transportationCoal(total, cartLoad, numberOfCarts, trolleyLoad):
     """
     计算第五大题第2小题运煤问题
@@ -534,8 +538,6 @@ def drawBarChart(multiple=5):
         # 没有注释地方说明我也不懂是如何实现的
         Utils.drawFilledRectangle(t, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "light blue")
     Utils.displayText(t, multiple, languages, heights)
-
-
 
 
 def printLog():
