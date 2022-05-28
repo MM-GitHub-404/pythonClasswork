@@ -415,7 +415,6 @@ class User(object):
                             builtInput()
 
                     builtInput()
-
                 elif serial == '21':
                     def builtInput():
                         try:
