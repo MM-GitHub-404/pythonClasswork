@@ -406,7 +406,7 @@ class User(object):
                             builtInput()
 
                     builtInput()
-                elif serial == '20':
+                elif '20' == serial:
                     print('请先选择文本,再选择图像')
 
                     def builtInput():
@@ -418,7 +418,7 @@ class User(object):
                             builtInput()
 
                     builtInput()
-                elif serial == '21':
+                elif '21' == serial:
                     def builtInput():
                         try:
                             a = float(input('请输入基准参数(任意数字,控制直方图在屏幕的大小,默认为5): '))
@@ -427,7 +427,7 @@ class User(object):
                             ServiceImpl.drawBarChart()
 
                     builtInput()
-                elif serial == '22':
+                elif '22' == serial:
                     def builtInput():
                         try:
                             length = float(input('雪花长度: '))
@@ -439,7 +439,7 @@ class User(object):
                             ServiceImpl.snowflakeCurve(length, stairs)
 
                     builtInput()
-                elif serial == '23':
+                elif '23' == serial:
                     def builtInput():
                         try:
                             length = float(input('奇异三角形长度: '))
@@ -451,7 +451,7 @@ class User(object):
                             ServiceImpl.strangeTriangle(length, stairs)
 
                     builtInput()
-                elif serial == '24':
+                elif '24' == serial:
                     os.system('calendar.py')
                 else:
                     print('错误: 您输入的程序序号不存在\n')
