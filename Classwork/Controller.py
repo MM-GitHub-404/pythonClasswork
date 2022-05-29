@@ -452,6 +452,7 @@ class User(object):
 
                     builtInput()
                 elif '24' == serial:
+                    # 此程序特殊,选择直接运行文件
                     os.system('calendar.py')
                 else:
                     print('错误: 您输入的程序序号不存在\n')
