@@ -39,7 +39,8 @@ def drawBarChart(multiple=5):
             # 设置排除掉jieba库分词不当得到的词语
             if (statistics[key] >= maxValue) and (
                     key not in (
-                    ' ', '\n', '\t', '/', '．', '、', '.', ',', '，', '  ', '：', '；', ';', '？', '。', '(', ')', '﹙', '﹚',
+                    ' ', '\n', '\t', '/', '．', '、', '.', ',', '，', '  ', '：', '；', ';',
+                    '？', '。', '(', ')', '﹙', '﹚',
                     '（', '）')):
                 maxKey = key
                 maxValue = statistics[key]
