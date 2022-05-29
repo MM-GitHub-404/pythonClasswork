@@ -579,16 +579,18 @@ def drawBarChart(multiple=5):
         heights.append(maxValue)
         del statistics[maxKey]
     # 设置画布尺寸
-    turtle.setup(1000, 800)
+    turtle.setup(1200, 700)
     # 使用乌龟绘制频率直方图
     pen = turtle.Turtle()
     # 设置绘制速度最快
-    pen.speed(0)
+    pen.speed(10)
     pen.hideturtle()
     for i in range(10):
         # drawFilledRectangle和displayText方法是使用别人写好的,简单调了一下参数
         Utils.drawFilledRectangle(pen, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "green")
     Utils.displayText(pen, multiple, languages, heights)
+    # 默认展示直方图10秒
+    time.sleep(10)
 
 
 def printLog():

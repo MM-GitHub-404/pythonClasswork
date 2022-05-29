@@ -183,7 +183,5 @@ def displayText(pen, multiple, languages, heights):
         pen.goto((-362 + 76 * i), heights[i] * multiple / 9)
         pen.write(str(heights[i]), align="center", font=("Arial", 10, "normal"))
         # 绘制标签参数
-        pen.goto((-362 + 76 * i), 10)
+        pen.goto((-362 + 76 * i), -30)
         pen.write(languages[i], align="center", font=("Arial", 10, "normal"))
-    # 默认展示直方图10秒
-    time.sleep(5)
