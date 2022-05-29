@@ -1,6 +1,6 @@
 # @Author  : 茂茂
 # @Time    : 2022/3/10 21:46
-
+import tkinter
 import math
 import turtle
 import jieba
@@ -569,22 +569,26 @@ def drawBarChart(multiple=5):
         maxValue = -1
         for key in statistics:
             # 设置排除掉jieba库分词不当得到的词语
-            if (statistics[key] >= maxValue) and (key not in ('\n', '\t', ' ')):
+            if (statistics[key] >= maxValue) and (
+                    key not in (
+                    ' ', '\n', '\t', '/', '．', '、', '.', ',', '，', '  ', '：', '；', ';', '？', '。', '(', ')', '﹙', '﹚',
+                    '（', '）')):
                 maxKey = key
                 maxValue = statistics[key]
         languages.append(maxKey)
         heights.append(maxValue)
         del statistics[maxKey]
+    # 设置画布尺寸
+    turtle.setup(1000, 800)
     # 使用乌龟绘制频率直方图
-    t = turtle.Turtle()
+    pen = turtle.Turtle()
     # 设置绘制速度最快
-    t.speed(0)
-    t.hideturtle()
+    pen.speed(0)
+    pen.hideturtle()
     for i in range(10):
         # drawFilledRectangle和displayText方法是使用别人写好的,简单调了一下参数
-        # 没有注释地方说明我也不懂是如何实现的
-        Utils.drawFilledRectangle(t, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "light blue")
-    Utils.displayText(t, multiple, languages, heights)
+        Utils.drawFilledRectangle(pen, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "green")
+    Utils.displayText(pen, multiple, languages, heights)
 
 
 def printLog():
@@ -596,3 +600,7 @@ def printLog():
     with open('log.txt', 'a+', encoding='utf-8') as file:
         # 打印异常时间及异常追溯信息
         file.write(str(datetime.datetime.now()) + '\n' + traceback.format_exc() + '\n')
+
+
+if __name__ == '__main__':
+    calendar()

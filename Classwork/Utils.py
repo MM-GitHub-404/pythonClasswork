@@ -10,6 +10,68 @@ import turtle
 '''
 
 
+# 平瑞年
+def leap_year(year):
+    if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
+        return True
+    else:
+        return False
+
+
+# 月份的天数
+def getMonthDays(year, month):
+    days = 31
+    if month == 2:  # 确定2月天数
+        if leap_year(year):
+            days = 29
+        else:
+            days = 28
+    elif month == 4 or month == 6 or month == 9 or month == 11:  # 4 6 9 11这些月份均为30天
+        days = 30
+    return days
+
+
+# 星期
+def getTotalDays(year, month):
+    totalDays = 0
+    for i in range(1, year):  # 计算从第一年到查询年份的前一年的总天数
+        if leap_year(i):
+            totalDays += 366
+        else:
+            totalDays += 365
+    for i in range(1, month):  # 再计算查询年份从一月到查询月份的前一个月的天数相加，得到总天数
+        totalDays += getMonthDays(year, i)
+    return totalDays
+
+
+# 生成万年历
+def generateCalendar(year,month):
+    # year = t1.get()  # 获取输入框的内容：年份
+    # month = t2.get()  # 获取输入框的内容：月份
+    year = int(year)  # input接受的数据默认为字符串，需要转换为int型
+    month = int(month)
+    count = 0  # 计数，每7个一换行
+    day = []  # 存储万年历的列表
+    day.append("日\t一\t二\t三\t四\t五\t六\n")
+    for i in range((getTotalDays(year, month) % 7) + 1):  # 前面的空出来
+        day.append('\t')  # end：可使print输出后不自动换行，接着输出数字
+        count += 1
+        if count == 7:  # 统一格式
+            day.append('\n')
+    for i in range(1, getMonthDays(year, month) + 1):  # 输出日期
+        day.append(str(i))
+        count += 1
+        if count % 7 == 0:  # 每7个一换行,不换行则需要\t
+            day.append('\n')
+        else:
+            day.append('\t')
+    if count % 7 != 0:  # 如果最后一天不为周六，则将空日期填满（原因：lable默认居中显示）
+        for i in range(7 - count % 7 - 1):
+            day.append('\t')
+        day.append('     ')
+    w.config(text="".join(day))  # 更改lable显示内容
+
+
 def isLowerCaseLetters(string):
     """
     判断字符是否为小写字母
@@ -85,83 +147,43 @@ def outputEvenNumbers(upperRange, lowerRange=0):
     return evenList
 
 
-def drawFilledRectangle(t, x, y, w, h, colorP="black", colorF="white"):
+def drawFilledRectangle(pen, x, y, w, h, colorP="black", colorF="green"):
     """
     绘制柱体
 
     """
-    t.pencolor(colorP)
-    t.fillcolor(colorF)
-    t.up()
-    t.goto(x, y)
-    t.down()
-    t.begin_fill()
-    t.goto(x + w, y)
-    t.goto(x + w, y + h)
-    t.goto(x, y + h)
-    t.goto(x, y)
-    t.end_fill()
+    pen.pencolor(colorP)
+    pen.fillcolor(colorF)
+    pen.up()
+    pen.goto(x, y)
+    pen.down()
+    # 单个绘制柱体
+    pen.begin_fill()
+    pen.goto(x + w, y)
+    pen.goto(x + w, y + h)
+    pen.goto(x, y + h)
+    pen.goto(x, y)
+    pen.end_fill()
 
 
-def displayText(t, multiple, languages, heights):
+def displayText(pen, multiple, languages, heights):
     """
     绘制柱体数据参数
 
-    :param t:           乌龟参数
+    :param pen:           乌龟参数
     :param multiple:    倍数柱体高度参数
     :param languages:   柱体数据参数列表
     :param heights:     柱体高度列表
     """
-    t.pencolor("black")
-    t.up()
+    pen.pencolor("black")
+    pen.up()
     # 由于使用的是绝对坐标, 所以需要用基准倍数multiple调整直方图大小
     for i in range(10):
         # 绘制频数参数
-        t.goto((-362 + 76 * i), heights[i] * multiple / 9)
-        t.write(str(heights[i]), align="center", font=("Arial", 10, "normal"))
+        pen.goto((-362 + 76 * i), heights[i] * multiple / 9)
+        pen.write(str(heights[i]), align="center", font=("Arial", 10, "normal"))
         # 绘制标签参数
-        t.goto((-362 + 76 * i), 10)
-        t.write(languages[i], align="center", font=("Arial", 10, "normal"))
+        pen.goto((-362 + 76 * i), 10)
+        pen.write(languages[i], align="center", font=("Arial", 10, "normal"))
     # 默认展示直方图10秒
-    time.sleep(10)
-
-
-def drawTriangle(pen, length, stairs):
-    """
-    绘制奇异三角形
-
-    @param pen:     海龟画笔
-    @param length:  最大三角形的边长
-    @param stairs:  需要绘制的阶数
-    """
-    # 绘制单个三角形,绘制完成方向调整归右,保持方向起始一致性
-    if stairs == 0:
-        pen.forward(length)
-        pen.left(120)
-        pen.forward(length)
-        pen.left(120)
-        pen.forward(length)
-        pen.left(120)
-    else:
-        # 依照边长折半规律,递归绘制n+1阶三角形内的n阶三角形
-        # 递归绘制左三角后,移动画笔到右三角
-        drawTriangle(pen, length / 2, stairs - 1)
-        pen.penup()
-        pen.forward(length / 2)
-        pen.pendown()
-
-        # 递归绘制右三角后,移动画笔到上三角
-        drawTriangle(pen, length / 2, stairs - 1)
-        pen.penup()
-        pen.left(120)
-        pen.forward(length / 2)
-        pen.right(120)
-        pen.pendown()
-
-        # 递归绘制上三角,移动画笔左三角起始位置,保持方向起始一致性
-        drawTriangle(pen, length / 2, stairs - 1)
-        pen.penup()
-        pen.right(120)
-        pen.forward(length / 2)
-        pen.left(120)
-        pen.pendown()
+    time.sleep(5)
