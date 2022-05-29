@@ -3,7 +3,6 @@
 import os
 import sys
 import PIL
-import calendar
 import ServiceImpl
 
 '''
