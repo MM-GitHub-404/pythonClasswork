@@ -603,6 +603,3 @@ def printLog():
         # 打印异常时间及异常追溯信息
         file.write(str(datetime.datetime.now()) + '\n' + traceback.format_exc() + '\n')
 
-
-if __name__ == '__main__':
-    calendar()
