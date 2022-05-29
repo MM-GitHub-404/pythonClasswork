@@ -16,6 +16,49 @@ import time
 业务逻辑层
 '''
 
+def drawBarChart(multiple=5):
+    """
+    绘制文本中词语出现次数排名前十的条形图
+
+    :param multiple: 条形图高度基准参数,默认为5倍频数
+    """
+    # 分词
+    strings = jieba.lcut_for_search(Utils.readTxtFile(Utils.selectFile()))
+    strSet = set(strings)
+    # 统计词语出现频率
+    statistics = {}
+    for s in strSet:
+        statistics[s] = strings.count(s)
+    # 获取用于绘制条形图的参数
+    languages = []
+    heights = []
+    for i in range(10):
+        maxKey = None
+        maxValue = -1
+        for key in statistics:
+            # 设置排除掉jieba库分词不当得到的词语
+            if (statistics[key] >= maxValue) and (
+                    key not in (
+                    ' ', '\n', '\t', '/', '．', '、', '.', ',', '，', '  ', '：', '；', ';', '？', '。', '(', ')', '﹙', '﹚',
+                    '（', '）')):
+                maxKey = key
+                maxValue = statistics[key]
+        languages.append(maxKey)
+        heights.append(maxValue)
+        del statistics[maxKey]
+    # 设置画布尺寸
+    turtle.setup(1200, 700)
+    # 使用乌龟绘制频率直方图
+    pen = turtle.Turtle()
+    # 设置绘制速度最快
+    pen.speed(10)
+    pen.hideturtle()
+    for i in range(10):
+        # drawFilledRectangle和displayText方法是使用别人写好的,简单调了一下参数
+        Utils.drawFilledRectangle(pen, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "green")
+    Utils.displayText(pen, multiple, languages, heights)
+    # 默认展示直方图10秒
+    time.sleep(10)
 
 def strangeTriangle(length, stairs):
     """
@@ -548,49 +591,6 @@ def generateWordcloud():
     return wcUrl
 
 
-def drawBarChart(multiple=5):
-    """
-    绘制文本中词语出现次数排名前十的条形图
-
-    :param multiple: 条形图高度基准参数,默认为5倍频数
-    """
-    # 分词
-    strings = jieba.lcut_for_search(Utils.readTxtFile(Utils.selectFile()))
-    strSet = set(strings)
-    # 统计词语出现频率
-    statistics = {}
-    for s in strSet:
-        statistics[s] = strings.count(s)
-    # 获取用于绘制条形图的参数
-    languages = []
-    heights = []
-    for i in range(10):
-        maxKey = None
-        maxValue = -1
-        for key in statistics:
-            # 设置排除掉jieba库分词不当得到的词语
-            if (statistics[key] >= maxValue) and (
-                    key not in (
-                    ' ', '\n', '\t', '/', '．', '、', '.', ',', '，', '  ', '：', '；', ';', '？', '。', '(', ')', '﹙', '﹚',
-                    '（', '）')):
-                maxKey = key
-                maxValue = statistics[key]
-        languages.append(maxKey)
-        heights.append(maxValue)
-        del statistics[maxKey]
-    # 设置画布尺寸
-    turtle.setup(1200, 700)
-    # 使用乌龟绘制频率直方图
-    pen = turtle.Turtle()
-    # 设置绘制速度最快
-    pen.speed(10)
-    pen.hideturtle()
-    for i in range(10):
-        # drawFilledRectangle和displayText方法是使用别人写好的,简单调了一下参数
-        Utils.drawFilledRectangle(pen, -400 + (76 * i), 0, 76, heights[i] * multiple / 9, "black", "green")
-    Utils.displayText(pen, multiple, languages, heights)
-    # 默认展示直方图10秒
-    time.sleep(10)
 
 
 def printLog():
@@ -602,4 +602,5 @@ def printLog():
     with open('log.txt', 'a+', encoding='utf-8') as file:
         # 打印异常时间及异常追溯信息
         file.write(str(datetime.datetime.now()) + '\n' + traceback.format_exc() + '\n')
+
 
